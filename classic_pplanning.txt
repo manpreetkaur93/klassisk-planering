@@ -1,0 +1,120 @@
+### Förklaring av konceptet: Klassisk planering och algoritmer
+
+**Klassisk planering** är ett område inom artificiell intelligens (AI) som syftar till att hitta en sekvens av handlingar för att ta en agent från ett **initialt tillstånd** till ett **måltillstånd** i en strukturerad miljö. Det bygger på vissa antaganden:
+
+1. **Deterministisk miljö:** Varje handling har ett förutsägbart och unikt resultat.
+2. **Fullständig information:** Agenten har tillgång till all relevant information om världen (inget är dolt eller osäkert).
+3. **En agent:** Bara en agent interagerar med miljön.
+4. **Diskreta handlingar och tillstånd:** Varje steg är tydligt definierat, och det finns inga kontinuerliga förändringar.
+
+---
+
+### Komponenter i klassisk planering
+
+1. **Tillstånd:**  
+   En representation av agentens aktuella situation, t.ex.:
+   - Agentens position.
+   - Om nyckeln är plockad upp.
+   - Om dörren är upplåst.
+
+2. **Handlingar:**  
+   Möjliga åtgärder agenten kan utföra. Varje handling har:
+   - **Förhandsvillkor:** Krav som måste vara uppfyllda för att handlingen ska kunna utföras.
+   - **Effekter:** Hur tillståndet förändras om handlingen utförs.
+
+3. **Mål:**  
+   Ett tillstånd eller en uppsättning kriterier som agenten försöker uppnå, t.ex. att nå en viss plats eller uppfylla vissa förhållanden.
+
+4. **Plan:**  
+   En sekvens av handlingar som tar agenten från det initiala tillståndet till måltillståndet.
+
+---
+
+### Exempel på klassisk planering: "Agenten och världen"
+**Scenario:**  
+- Agenten startar vid `S`.
+- Agenten måste:
+  1. Plocka upp nyckeln vid `K`.
+  2. Låsa upp dörren vid `D`.
+  3. Gå till målet `G`.
+
+**Handlingar:**
+- `MOVE_UP`, `MOVE_DOWN`, `MOVE_LEFT`, `MOVE_RIGHT`: Förflyttar agenten i världen.
+- `PICK_UP_KEY`: Plockar upp nyckeln om agenten är vid nyckelns position.
+- `UNLOCK_DOOR`: Låser upp dörren om agenten är vid dörren och har nyckeln.
+
+**Planeringsmål:**  
+Generera en plan som uppfyller dessa krav i så få steg som möjligt.
+
+---
+
+### Algoritmer för klassisk planering
+
+#### 1. **Bredden-först-sökning (BFS)**
+- Utforskar alla möjliga tillstånd bredvid det aktuella tillståndet innan den går djupare.
+- Garanterar att den hittar den kortaste planen (minsta antalet steg).
+
+**Fördelar:**
+- Enkelt att implementera.
+- Optimal om alla handlingar har samma kostnad.
+
+**Nackdelar:**
+- Kan bli ineffektiv i stora sökrymder (kräver mycket minne).
+
+#### 2. **A* (A-Star) Search**
+- Använder en heuristisk funktion för att prioritera vilka tillstånd som ska utforskas.
+- Kombinerar:
+  - **G-kostnad:** Kostnaden från start till det aktuella tillståndet.
+  - **H-kostnad:** En uppskattning av återstående kostnad till målet.
+
+**Fördelar:**
+- Mycket effektivare än BFS i många fall.
+- Optimal om heuristiken är korrekt.
+
+**Nackdelar:**
+- Kräver en bra heuristik, vilket inte alltid är lätt att definiera.
+
+#### 3. **Djupen-först-sökning (DFS)**
+- Utforskar en väg helt innan den går tillbaka och provar en annan.
+- Inte optimal och kan fastna i oändliga sökningar om sökrymden är för stor.
+
+---
+
+### Användningsområden för klassisk planering
+
+1. **Robotics:**
+   - Styrning av robotar i kontrollerade miljöer, t.ex. robotarmar i en fabrik.
+   - Exempel: Plocka och placera objekt i rätt ordning.
+
+2. **Logistik:**
+   - Hantera lastbilar, paket, eller flyg för att optimera rutter och leveranser.
+   - Exempel: Planera sekvensen av leveranser för att minimera kostnader.
+
+3. **Spelutveckling:**
+   - AI för spelkaraktärer som behöver navigera genom nivåer eller lösa pussel.
+   - Exempel: Planera hur en NPC tar sig till spelaren medan den undviker hinder.
+
+4. **Resursplanering:**
+   - Optimera användning av resurser i en organisation eller ett projekt.
+   - Exempel: Planera hur resurser ska fördelas i ett byggprojekt.
+
+5. **Utbildning:**
+   - Demonstrera AI-koncept och algoritmer genom att skapa små och kontrollerade scenarier.
+
+---
+
+### Begränsningar med klassisk planering
+1. **Skalbarhet:** Fungerar bäst i små och medelstora sökrymder. Blir ineffektivt i stora miljöer.
+2. **Hantera osäkerhet:** Kan inte hantera osäkra eller dynamiska miljöer (använd reinforcement learning istället).
+3. **Endast en agent:** Kan inte hantera flera agenter utan att det blir extremt komplext.
+4. **Diskreta handlingar:** Inte lämpligt för kontinuerliga problem (t.ex. flygplansstyrning).
+
+---
+
+### När ska man använda klassisk planering?
+- När miljön är **deterministisk**, **statisk**, och **välkänd**.
+- När målet är tydligt definierat och sökrymden är hanterbar.
+- När man vill ha en **optimerad lösning** (minimera antalet steg eller kostnad).
+
+Om miljön är osäker eller förändras över tid, är reinforcement learning eller probabilistisk planering mer lämpligt.
+
